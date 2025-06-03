@@ -1,17 +1,21 @@
 import google.generativeai as genai
 
-# importar a chave de API do gemini
+# Configurar a chave de API do Gemini
 api = 'AIzaSyCxrE6u0KsbiAR6vLrBnC5PPqG05wl-bTA'
 genai.configure(api_key=api)
 
-# configurar o modelo da IA que vai ser usada
+# Escolher o modelo
 model = genai.GenerativeModel('gemini-1.5-flash')
 
 
-def content(pergunta):
-#perguntar e solicitar resposta a IA
- print('faca uma pergunta a IA')
-pergunta = input('')
+# Função para gerar conteúdo
 def content(pergunta):
     response = model.generate_content(pergunta)
     return response.text
+
+
+# Teste 
+if __name__ == "__main__":
+    pergunta = input("Faça uma pergunta para a IA: ")
+    resposta = content(pergunta)
+    print("Resposta:", resposta)
