@@ -13,7 +13,6 @@ def content(pergunta):
     response = model.generate_content(pergunta)
     return response.text
 
-
 # Teste 
 if __name__ == "__main__":
     pergunta = input("Faça uma pergunta para a IA: ")
