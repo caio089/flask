@@ -1,10 +1,13 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 from gemini import content
 
 app = Flask(__name__)
 
 @app.route('/', methods=['POST'])
-def home():
+def home(): 
+
+    return render_template('index.html')
+
     # Tenta pegar do JSON
     if request.is_json:
         data = request.get_json()
