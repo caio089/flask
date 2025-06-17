@@ -35,6 +35,7 @@ def home():
             db.session.commit()
 
             resposta = content(pergunta)
+            
 
     # 🆕 PEGAR O HISTÓRICO PARA MOSTRAR NO HTML
     historico = Pesquisa.query.order_by(Pesquisa.data_hora.desc()).all()

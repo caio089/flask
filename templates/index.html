@@ -9,8 +9,11 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <!-- Bootstrap JS (para funcionar o collapse) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+   
+
   </head>
 
   <body
@@ -51,30 +54,41 @@
       class="position-fixed top-0 end-0 p-3 bg-white rounded shadow"
       style="z-index: 1050; cursor: pointer"
     >
-      <h2>
-        <a
-          data-bs-toggle="collapse"
-          href="#historicoCollapse"
-          role="button"
-          aria-expanded="false"
-          aria-controls="historicoCollapse"
-          class="text-decoration-none hover-grow"
-        >
-          Histórico ⬇️
-        </a>
-      </h2>
-    </div>
-
-    <div class="collapse mt-2" id="historicoCollapse">
-    <ul class="list-group mb-0">
-      {% for item in historico %}
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        <span>{{ item.texto }}</span>
-        <small class="text-muted">{{ item.data_hora.strftime('%d/%m/%Y %H:%M:%S') }}</small>
-      </li>
-      {% endfor %}
-    </ul>
-  </div>
+     <!-- Botão para abrir o histórico -->
+<!-- Botão para abrir o histórico -->
+<div class="mt-1 w-100 text-center bg-primary bg-opacity-50 ">
+  <a
+    class="fw-semibold"
+    data-bs-toggle="collapse"
+    href="#historicoCollapse"
+    role="button"
+    aria-expanded="false"
+    aria-controls="historicoCollapse"
+    style="
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff;
+      color: #6f42c1;
+      border: 1px solid #6f42c1;
+      padding: 1px 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      text-decoration: none;
+      display: inline-block;
+    "
+  >
+    Histórico ⬇️
+  </a>
 </div>
+
+<!-- Histórico escondido por padrão -->
+<div class="collapse mt-3" id="historicoCollapse">
+  <ul class="list-group" style="font-family: 'Inter', sans-serif;">
+    {% for item in historico %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <span>{{ item.texto }}</span>
+      <small class="text-muted">{{ item.data_hora.strftime('%d/%m/%Y %H:%M:%S') }}</small>
+    </li>
+    {% endfor %}
+  </ul>
   </body>
 </html>
