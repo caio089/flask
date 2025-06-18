@@ -9,10 +9,32 @@
   />
 </head>
 <body class="d-flex justify-content-center align-items-center vh-100 bg-dark text-white">
-  <form method="POST" class="bg-white text-dark p-4 rounded shadow" style="width: 350px;">
-    <h2 class="text-center mb-4">Digite seu nome</h2>
-    <input type="text" name="nome" class="form-control mb-3" placeholder="Seu nome" required />
-    <button class="btn btn-primary w-100">Entrar</button>
-  </form>
+
+<form method="POST" action="/login" class="bg-white text-dark p-4 rounded shadow" style="width: 350px;">
+  <h2 class="text-center mb-4">Digite seu nome</h2>
+
+  <input type="text" name="nome" class="form-control mb-3" placeholder="Seu nome" required />
+
+  <!-- Checkbox de administrador -->
+  <div class="form-check mb-3">
+    <input type="checkbox" name="adm" id="adm" class="form-check-input" onclick="mostrarSenha()">
+    <label for="adm" class="form-check-label">Sou administrador</label>
+  </div>
+
+  <!-- Campo de senha de admin (escondido por padrão) -->
+  <input type="password" name="senha_admin" id="senha_admin" class="form-control mb-3 d-none" placeholder="Senha do administrador" />
+
+  <button type="submit" class="btn btn-outline-primary w-100">Entrar</button>
+</form>
+
+<script>
+  function mostrarSenha() {
+    const senhaInput = document.getElementById("senha_admin");
+    const checkbox = document.getElementById("adm");
+    senhaInput.classList.toggle("d-none", !checkbox.checked);
+  }
+</script>
+
 </body>
 </html>
+

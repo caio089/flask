@@ -23,16 +23,29 @@ class Pesquisa(db.Model):
 def login():
     if request.method == 'POST':
         nome = request.form.get('nome')
+        adm = request.form.get('adm')  # <- pega o checkbox ('on' se marcado, None se não)
+        senha_admin = request.form.get('senha_admin')  # <- pega a senha digitada
+
         if nome:
             session['usuario'] = nome
+
+            # Corrigido: usar senha_admin, não senha_adm
+            if adm == 'on' and senha_admin == 'admin123':
+                session['admin'] = True
+            else:
+                session['admin'] = False
+
             return redirect(url_for('home'))
+
     return render_template('login.html')
+
+
 
 # Rota principal (home)
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if 'usuario' not in session:
-        return redirect(url_for('login'))  # ✅ redireciona para login se não estiver logado
+        return redirect(url_for('login'))  # redireciona para login se não estiver logado
 
     nome = session['usuario']
     resposta = None
@@ -45,8 +58,15 @@ def home():
             db.session.commit()
             resposta = content(pergunta)
 
-    historico = Pesquisa.query.filter_by(nome_usuario=nome).order_by(Pesquisa.data_hora.desc()).all()
-    return render_template('index.html', resposta=resposta, historico=historico)
+    # Verifica se é admin e busca o histórico correto
+    if session.get('admin'):
+        historico = Pesquisa.query.order_by(Pesquisa.data_hora.desc()).all()
+        usuarios = db.session.query(Pesquisa.nome_usuario).distinct().all()
+    else:
+        historico = Pesquisa.query.filter_by(nome_usuario=nome).order_by(Pesquisa.data_hora.desc()).all()
+        usuarios = None
+
+    return render_template('index.html', resposta=resposta, historico=historico, usuarios=usuarios)
 
 
 # Rota para logout (opcional, para testar)
@@ -54,6 +74,8 @@ def home():
 def logout():
     session.pop('usuario', None)
     return redirect(url_for('login'))
+
+
 
 # Criação do banco e execução do app
 if __name__ == '__main__':

@@ -91,4 +91,20 @@
     {% endfor %}
   </ul>
   </body>
+
+  {% if session.admin %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <span class="navbar-brand">Usuários cadastrados:</span>
+    <ul class="navbar-nav">
+      {% for usuario in usuarios %}
+        <li class="nav-item">
+          <a class="nav-link" href="#">{{ usuario[0] }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</nav>
+{% endif %}
+
 </html>
