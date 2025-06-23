@@ -76,6 +76,19 @@ def logout():
     return redirect(url_for('login'))
 
 
+@app.route('/deletar/<int:id>')
+def deletar(id):
+    pergunta = Pesquisa.query.get_or_404(id)
+
+    # Verifica se é admin ou dono da pergunta
+    if session.get('admin') or session['usuario'] == pergunta.nome_usuario:
+        db.session.delete(pergunta)
+        db.session.commit()
+
+    return redirect(url_for('home'))
+
+
+
 
 # Criação do banco e execução do app
 if __name__ == '__main__':

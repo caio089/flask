@@ -88,9 +88,9 @@
     </li>
     {% endfor %}
   </ul>
-  </body>
 
-  {% if session.admin %}
+
+    {% if session.admin %}
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <span class="navbar-brand">Usuários cadastrados:</span>
@@ -105,4 +105,15 @@
 </nav>
 {% endif %}
 
+{% for item in historico %}
+  <div class="mb-3 border p-3 rounded">
+    <p>{{ item.texto }}</p>
+    <small>{{ item.data_hora.strftime('%d/%m/%Y %H:%M') }} — {{ item.nome_usuario }}</small>
+
+    <!-- BOTÃO DELETAR -->
+    <a href="{{ url_for('deletar', id=item.id) }}" class="btn btn-sm btn-danger float-end">Deletar</a>
+  </div>
+{% endfor %}
+
+  </body>
 </html>
